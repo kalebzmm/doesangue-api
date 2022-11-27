@@ -8,7 +8,7 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: 'easy-db.ctoesfdrxzlm.sa-east-1.rds.amazonaws.com',
+      host: 'localhost',
       port: 5432,
       username: 'admin',
       password: 'root',
