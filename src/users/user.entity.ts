@@ -1,14 +1,15 @@
 import {
-Table,
-Column,
-Model,
-Unique,
-IsEmail,
-DataType,
-CreatedAt,
-UpdatedAt,
-DeletedAt,
+    Table,
+    Column,
+    Model,
+    Unique,
+    IsEmail,
+    DataType,
+    CreatedAt,
+    UpdatedAt,
+    DeletedAt,
 } from 'sequelize-typescript';
+import { Roles } from './enums/roles.enum';
 
 @Table
 export class User extends Model<User> {
@@ -24,14 +25,23 @@ export class User extends Model<User> {
     @Column
     email: string;
 
-    @Column({ field: 'nome' })
-    nome: string;
+    @Column
+    name: string;
 
     @Column(DataType.DATEONLY)
-    nascimento: string;
+    birth: string;
 
-    // @BelongsToMany(() => Role, () => RoleUser)
-    // roles: Role[];
+    @Column
+    blood_type: string;
+    
+    @Column
+    password: string;
+
+    @Column({
+        type: DataType.UUID,
+        defaultValue: Roles.USER,
+    })
+    role: Roles;
 
     @CreatedAt
     @Column({ field: 'created_at' })

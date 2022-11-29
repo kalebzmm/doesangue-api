@@ -3,32 +3,34 @@ import {
     ApiCreatedResponse,
     ApiOkResponse,
     ApiBearerAuth,
+    ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { ArticleService } from './posts.service';
+import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 
 @Controller('posts')
+@ApiTags('Post')
 @UseGuards(RolesGuard)
-export class ArticleController {
+export class PostsController {
     constructor(
-        private readonly articleService: ArticleService,
+        private readonly postsService: PostsService,
     ) { }
 
     @Get()
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({})
-    async getAllArticle() {
-        return await this.articleService.findAll();
+    async getAllPosts() {
+        return await this.postsService.findAll();
     }
 
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({})
-    async getOneArticles(@Param() params) {
-        return await this.articleService.findOne(params.id);
+    async getOnePost(@Param() params) {
+        return await this.postsService.findOne(params.id);
     }
 
     @Post()
@@ -37,8 +39,8 @@ export class ArticleController {
     @Roles('admin')
     @ApiBearerAuth()
     @ApiCreatedResponse({})
-    async createArticle(@Body() createArticleDto: CreatePostDto) {
-        return await this.articleService.create(createArticleDto);
+    async createPost(@Body() createArticleDto: CreatePostDto) {
+        return await this.postsService.create(createArticleDto);
     }
 
 
@@ -49,7 +51,7 @@ export class ArticleController {
     @ApiBearerAuth()
     @ApiOkResponse({})
     async updateWithAllParams(@Param() params, @Body() createArticleDto: CreatePostDto) {
-        return await this.articleService.update(params.id, createArticleDto);
+        return await this.postsService.update(params.id, createArticleDto);
     }
 
     @Delete(':id')
@@ -58,7 +60,7 @@ export class ArticleController {
     @Roles('admin')
     @ApiBearerAuth()
     @ApiOkResponse({})
-    async deleteOneArticle(@Param() params) {
-        return await this.articleService.delete(params.id);
+    async deleteOnePost(@Param() params) {
+        return await this.postsService.delete(params.id);
     }
 }

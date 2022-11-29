@@ -1,4 +1,4 @@
-import { IsNotEmpty, MinLength, MaxLength, IsEmail, IsString } from 'class-validator';
+import { IsNotEmpty, MinLength, MaxLength, IsString } from 'class-validator';
 
 export class CreatePostDto {
 

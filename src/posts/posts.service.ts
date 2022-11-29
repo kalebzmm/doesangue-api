@@ -3,7 +3,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { Post } from './post.model';
 
 @Injectable()
-export class ArticleService {
+export class PostsService {
     constructor(
         @Inject('Post')
         private readonly postsRepository: typeof Post,

@@ -6,7 +6,6 @@ import {
   SwaggerCustomOptions,
 } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { RolesGuard } from './auth/guards/roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -30,7 +29,6 @@ async function bootstrap() {
   SwaggerModule.setup('explorer', app, document, customOptions);
 
   const reflector = app.get(Reflector);
-  app.useGlobalGuards(new RolesGuard(reflector));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

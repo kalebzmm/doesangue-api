@@ -13,13 +13,14 @@ export class RolesGuard extends AuthGuard('jwt') {
     if (!roles) {
       return true;
     }
-    const hasRole = () => user.roles.some((role) => roles.includes(role));
+    // const hasRole = () => user.role.some((role) => roles.includes(role));
+    const hasRole = (): any => user.role === roles[0];
     if (!user) {
       throw new UnauthorizedException();
     }
-    if (!(user.roles && hasRole())) {
+    if (!(user.role && hasRole())) {
       throw new ForbiddenException('Forbidden');
     }
-    return user && user.roles && hasRole();
+    return user && user.role && hasRole();
   }
 }

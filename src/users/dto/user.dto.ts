@@ -1,23 +1,32 @@
 import { User } from './../user.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { Roles } from '../enums/roles.enum';
 
 export class UserDto {
   @ApiProperty()
-  id: string;
+  readonly id: string;
 
   @ApiProperty()
   readonly email: string;
 
   @ApiProperty()
-  readonly nome: string;
+  readonly role: Roles;
 
   @ApiProperty()
-  readonly nascimento: string;
+  readonly name: string;
+
+  @ApiProperty()
+  readonly birth: string;
+
+  @ApiProperty()
+  readonly blood_type: string;
 
   constructor(user: User) {
     this.id = user.id;
     this.email = user.email;
-    this.nome = user.nome;
-    this.nascimento = user.nascimento;
+    this.name = user.name;
+    this.birth = user.birth;
+    this.blood_type = user.blood_type;
+    this.role = user.role;
   }
 }

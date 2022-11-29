@@ -1,4 +1,4 @@
-import { Controller, Get, Body, UseGuards, Put, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Put, Param, Delete, Req, HttpCode, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import {
@@ -9,16 +9,42 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthUserDto } from './dto/auth-user.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { AuthService } from 'src/auth/auth.service';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('users')
-@ApiTags('Usuarios')
+@ApiTags('User')
+@UseGuards(RolesGuard)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  async authUser(@Body() authUser: AuthUserDto) {
+      const user = await this.usersService.authUser(authUser);
+      if(user) {
+        const accessToken = await this.authService.createAccessToken(user)
+        return {accessToken, ...user};
+      }
+  }
+
+  @Post('register')
+  @HttpCode(HttpStatus.CREATED)
+  async registerUser(@Body() registerUser: RegisterUserDto) {
+      return await this.usersService.create(registerUser);
+  }
 
   @Get()
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({ type: [UserDto] })
+  @Roles('USER')
   findAll(): Promise<UserDto[]> {
     return this.usersService.findAll();
   }
@@ -32,7 +58,7 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({ type: UserDto })
   async getUserById(@Param('id') id): Promise<UserDto> {
-    return this.usersService.getUser(id);
+    return this.usersService.findOne(id);
   }
 
   @Put(':id')
@@ -50,11 +76,11 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  // @Delete('me')
-  // @ApiBearerAuth()
-  // @UseGuards(AuthGuard('jwt'))
-  // @ApiOkResponse({ type: UserDto })
-  // delete(@Req() request): Promise<UserDto> {
-  //   return this.usersService.delete(request.user.id);
-  // }
+  @Delete('me')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOkResponse({ type: UserDto })
+  delete(@Req() request): Promise<UserDto> {
+    return this.usersService.delete(request.user.id);
+  }
 }

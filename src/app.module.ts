@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
-import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: 'localhost',
-      port: 5432,
-      username: 'admin',
-      password: 'root',
+      port: 3306,
+      username: 'root',
+      password: '',
       database: 'doesangue',
-      schema: 'public',
       autoLoadModels: true,
       synchronize: true,
       timezone: 'America/Fortaleza',
@@ -21,7 +21,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     AuthModule,
     UsersModule,
-    RolesModule,
+    PostsModule,
+    ConfigModule.forRoot(),
   ],
   controllers: [],
   providers: [],

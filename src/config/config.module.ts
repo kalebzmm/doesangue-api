@@ -8,4 +8,4 @@ import { ConfigService } from './config.service';
   imports: [],
   controllers: [],
 })
-export class SharedModule {}
+export class ConfigModule {}

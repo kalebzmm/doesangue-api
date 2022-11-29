@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ArticleController } from './posts.controller';
-import { ArticleService } from './posts.service';
-
-import { MongooseModule } from '@nestjs/mongoose';
-import { ArticleSchema } from './schemas/article.schema';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { Post } from './post.model';
+import { PostsController } from './posts.controller';
+import { PostsService } from './posts.service';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{name: 'Article', schema: ArticleSchema}]),
-  ],
-  controllers: [ArticleController],
-  providers: [ArticleService]
+  controllers: [PostsController],
+  providers: [PostsService, { provide: 'Post', useValue: Post }],
+  exports: [PostsService],
+  imports: [SequelizeModule.forFeature([Post])]
 })
-export class ArticleModule {}
+export class PostsModule {}
