@@ -17,7 +17,6 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('users')
 @ApiTags('User')
-@UseGuards(RolesGuard)
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
@@ -44,7 +43,8 @@ export class UsersController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({ type: [UserDto] })
-  @Roles('USER')
+  @UseGuards(RolesGuard)
+  @Roles('ADMIN')
   findAll(): Promise<UserDto[]> {
     return this.usersService.findAll();
   }
@@ -56,6 +56,8 @@ export class UsersController {
   })
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @UseGuards(RolesGuard)
+  @Roles('ADMIN')
   @ApiOkResponse({ type: UserDto })
   async getUserById(@Param('id') id): Promise<UserDto> {
     return this.usersService.findOne(id);
@@ -68,6 +70,8 @@ export class UsersController {
   })
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @UseGuards(RolesGuard)
+  @Roles('ADMIN')
   @ApiOkResponse({ type: UserDto })
   update(
     @Body() updateUserDto: UpdateUserDto,
@@ -79,6 +83,8 @@ export class UsersController {
   @Delete('me')
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @UseGuards(RolesGuard)
+  @Roles('ADMIN')
   @ApiOkResponse({ type: UserDto })
   delete(@Req() request): Promise<UserDto> {
     return this.usersService.delete(request.user.id);

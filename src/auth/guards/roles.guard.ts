@@ -13,7 +13,6 @@ export class RolesGuard extends AuthGuard('jwt') {
     if (!roles) {
       return true;
     }
-    // const hasRole = () => user.role.some((role) => roles.includes(role));
     const hasRole = (): any => user.role === roles[0];
     if (!user) {
       throw new UnauthorizedException();
