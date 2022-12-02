@@ -36,6 +36,16 @@ export class UsersService {
     return user;
   }
 
+  async findMe(userData) {
+    const user = await this.usersRepository.findOne<User>({
+      where: { id: userData.id },
+    });
+    if (!user) {
+      throw new HttpException('Usuário não encontrado', HttpStatus.NOT_FOUND);
+    }
+    return user;
+  }
+
   async authUser(user: AuthUserDto): Promise<UserDto> {
     const found_user = await this.findOneByEmail(user.email);
     if (!found_user) {

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Put, Param, Delete, Req, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Put, Param, Delete, Req, HttpCode, HttpStatus, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import {
@@ -37,6 +37,15 @@ export class UsersController {
   @HttpCode(HttpStatus.CREATED)
   async registerUser(@Body() registerUser: RegisterUserDto) {
       return await this.usersService.create(registerUser);
+  }
+
+  @Get('me')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOkResponse({ type: UserDto })
+  @UseGuards(RolesGuard)
+  findMe(@Request() request): Promise<UserDto> {
+    return this.usersService.findMe(request.user);
   }
 
   @Get()
