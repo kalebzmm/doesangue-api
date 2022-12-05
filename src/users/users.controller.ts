@@ -6,6 +6,7 @@ import {
   ApiOkResponse,
   ApiBearerAuth,
   ApiParam,
+  ApiCreatedResponse,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -35,11 +36,13 @@ export class UsersController {
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
+  @ApiCreatedResponse({ type: UserDto })
   async registerUser(@Body() registerUser: RegisterUserDto) {
       return await this.usersService.create(registerUser);
   }
 
   @Get('me')
+  @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({ type: UserDto })
@@ -49,6 +52,7 @@ export class UsersController {
   }
 
   @Get()
+  @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({ type: [UserDto] })
@@ -59,6 +63,7 @@ export class UsersController {
   }
 
   @Get(':id')
+  @HttpCode(HttpStatus.OK)
   @ApiParam({
     name: 'id',
     type: String,
@@ -73,6 +78,7 @@ export class UsersController {
   }
 
   @Put(':id')
+  @HttpCode(HttpStatus.OK)
   @ApiParam({
     name: 'id',
     type: String,
@@ -90,12 +96,12 @@ export class UsersController {
   }
 
   @Delete('me')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @UseGuards(RolesGuard)
   @Roles('ADMIN')
-  @ApiOkResponse({ type: UserDto })
-  delete(@Req() request): Promise<UserDto> {
+  delete(@Request() request): Promise<UserDto> {
     return this.usersService.delete(request.user.id);
   }
 }

@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { PostsModule } from './posts/posts.module';
+import { SchdeulesModule } from './schedules/schedules.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { PostsModule } from './posts/posts.module';
     AuthModule,
     UsersModule,
     PostsModule,
+    SchdeulesModule,
     ConfigModule.forRoot(),
   ],
   controllers: [],

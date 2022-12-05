@@ -1,7 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, MinLength, MaxLength, IsString } from 'class-validator';
+import { IsNotEmpty, MinLength, MaxLength, IsString, IsUUID } from 'class-validator';
 
-export class CreatePostDto {
+export class UpdatePostDto {
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsUUID('4')
+    readonly id: string;
 
     @ApiProperty()
     @IsNotEmpty()

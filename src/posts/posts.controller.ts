@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpCode, HttpStatus, UseGuards, Request } from '@nestjs/common';
 import {
     ApiCreatedResponse,
     ApiOkResponse,
@@ -10,6 +10,8 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { Post as PostModel } from './post.model';
+import { UpdatePostDto } from './dto/update-post.dto';
 
 @Controller('posts')
 @ApiTags('Post')
@@ -21,46 +23,50 @@ export class PostsController {
 
     @Get()
     @HttpCode(HttpStatus.OK)
-    @ApiOkResponse({})
+    @UseGuards(AuthGuard('jwt'))
+    @ApiOkResponse({type: [PostModel]})
+    @ApiBearerAuth()
+    @Roles('USER')
     async getAllPosts() {
-        return await this.postsService.findAll();
+        return this.postsService.findAll();
     }
 
     @Get(':id')
     @HttpCode(HttpStatus.OK)
-    @ApiOkResponse({})
+    @UseGuards(AuthGuard('jwt'))
+    @ApiOkResponse({type: PostModel})
+    @ApiBearerAuth()
+    @Roles('USER')
     async getOnePost(@Param() params) {
-        return await this.postsService.findOne(params.id);
+        return this.postsService.findOne(params.id);
     }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @UseGuards(AuthGuard('jwt'))
-    @Roles('admin')
     @ApiBearerAuth()
-    @ApiCreatedResponse({})
-    async createPost(@Body() createArticleDto: CreatePostDto) {
-        return await this.postsService.create(createArticleDto);
+    @Roles('USER')
+    @ApiCreatedResponse({type: PostModel})
+    async createPost(@Body() createPostDto: CreatePostDto, @Request() request) {
+        return await this.postsService.create(createPostDto, request.user.id);
     }
-
 
     @Put(':id')
     @HttpCode(HttpStatus.OK)
     @UseGuards(AuthGuard('jwt'))
-    @Roles('admin')
+    @Roles('ADMIN')
     @ApiBearerAuth()
-    @ApiOkResponse({})
-    async updateWithAllParams(@Param() params, @Body() createArticleDto: CreatePostDto) {
-        return await this.postsService.update(params.id, createArticleDto);
+    @ApiOkResponse({type: PostModel})
+    async updateWithAllParams(@Param() params, @Body() updatePostDto: UpdatePostDto) {
+        return this.postsService.update(params.id, updatePostDto);
     }
 
     @Delete(':id')
-    @HttpCode(HttpStatus.OK)
+    @HttpCode(HttpStatus.NO_CONTENT)
     @UseGuards(AuthGuard('jwt'))
-    @Roles('admin')
+    @Roles('ADMIN')
     @ApiBearerAuth()
-    @ApiOkResponse({})
     async deleteOnePost(@Param() params) {
-        return await this.postsService.delete(params.id);
+        return this.postsService.delete(params.id);
     }
 }
