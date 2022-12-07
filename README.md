@@ -2,11 +2,11 @@
   <img src="logo.png">
 </p>
 
-<p align="center">Backend do aplicativo <a href="https://github.com/kalebzmm/doesangue">Doe Sangue</a></p>
+<p align="center">Backend do aplicativo <a href="https://github.com/kalebzmm/doesangue">Doe Sangue.</a></p>
 
 ## Sobre
 
-Todas as informações sobre o projeto você pode obter no repositório oficial do aplicativo [Doe Sangue](https://github.com/nestjs/nest).
+Todas as informações sobre o projeto você pode obter no repositório oficial do aplicativo [Doe Sangue](https://github.com/kalebzmm/doesangue).
 
 ## Instalação
 
