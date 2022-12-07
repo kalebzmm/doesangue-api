@@ -1,0 +1,47 @@
+{
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "inferenceAccelerators": [],
+    "containerDefinitions": [
+        {
+            "name": "doesangue-api-container",
+            "image": "155012797864.dkr.ecr.us-east-1.amazonaws.com/doesangue-api",
+            "memory": "128",
+            "resourceRequirements": null,
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": "80",
+                    "containerPort": "3000",
+                    "protocol": "tcp"
+                }
+            ],
+            "entryPoint": [],
+            "command": [],
+            "environment": null,
+            "environmentFiles": [],
+            "secrets": null,
+            "mountPoints": null,
+            "volumesFrom": null,
+            "hostname": null,
+            "user": null,
+            "workingDirectory": null,
+            "extraHosts": null,
+            "logConfiguration": null,
+            "ulimits": null,
+            "dockerLabels": null,
+            "dependsOn": null,
+            "repositoryCredentials": {
+                "credentialsParameter": ""
+            }
+        }
+    ],
+    "volumes": [],
+    "networkMode": null,
+    "memory": null,
+    "cpu": null,
+    "placementConstraints": [],
+    "family": "ecs-doesangue-api",
+    "tags": []
+}

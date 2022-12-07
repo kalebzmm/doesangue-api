@@ -25,7 +25,7 @@ export class Schedule extends Model<Schedule> {
 
     @ApiProperty()
     @Column
-    date: string;
+    date: Date;
 
     @ApiProperty()
     @ForeignKey(() => User)
