@@ -4,6 +4,15 @@
 
 <p align="center">Backend do aplicativo <a href="https://github.com/kalebzmm/doesangue">Doe Sangue</a>.</p>
 
+![GitHub repo size](https://img.shields.io/github/repo-size/kalebzmm/doesangue-api?style=for-the-badge)
+<br/>
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=kalebzmm_doesangue-api&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=kalebzmm_doesangue-api)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=kalebzmm_doesangue-api&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=kalebzmm_doesangue-api)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=kalebzmm_doesangue-api&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=kalebzmm_doesangue-api)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=kalebzmm_doesangue-api&metric=bugs)](https://sonarcloud.io/summary/new_code?id=kalebzmm_doesangue-api)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kalebzmm_doesangue-api&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=kalebzmm_doesangue-api)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=kalebzmm_doesangue-api&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=kalebzmm_doesangue-api)
+
 ## Sobre
 
 Todas as informações sobre o projeto você pode obter no repositório oficial do aplicativo [Doe Sangue](https://github.com/kalebzmm/doesangue).
