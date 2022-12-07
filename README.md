@@ -2,8 +2,6 @@
   <img src="logo.png">
 </p>
 
-<p align="center">Backend do aplicativo <a href="https://github.com/kalebzmm/doesangue">Doe Sangue</a>.</p>
-
 ![GitHub repo size](https://img.shields.io/github/repo-size/kalebzmm/doesangue-api?style=for-the-badge)
 <br/>
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=kalebzmm_doesangue-api&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=kalebzmm_doesangue-api)
