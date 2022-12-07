@@ -2,7 +2,7 @@
   <img src="logo.png">
 </p>
 
-<p align="center">Backend do aplicativo <a href="https://github.com/kalebzmm/doesangue">Doe Sangue.</a></p>
+<p align="center">Backend do aplicativo <a href="https://github.com/kalebzmm/doesangue">Doe Sangue</a>.</p>
 
 ## Sobre
 
